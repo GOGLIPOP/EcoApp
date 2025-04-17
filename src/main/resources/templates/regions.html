@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Regions</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home">
+    <h2 class="page-title">Області</h2>
+    <a href="/regions/add" class="button button-add">Додати область</a>
+    <table class="container-table">
+        <thead>
+        <tr>
+            <th class="table-header">ID</th>
+            <th class="table-header">Назва</th>
+            <th class="table-header">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="region : ${regions}">
+            <td th:text="${region.id}" class="table-cell">1</td>
+            <td th:text="${region.name}" class="table-cell">Київська</td>
+            <td class="table-cell actions">
+                <a th:href="@{'/regions/edit/' + ${region.id}}" class="button button-edit">Edit</a>
+                <a th:href="@{'/regions/delete/' + ${region.id}}" class="button button-delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/home" class="button button-back">Повернутися на головну</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Додавання міста/району</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home">
+    <h1>Додавання міста/району</h1>
+    <form th:action="@{/districts_cities/add}" th:object="${districtCity}" method="post" class="form-container">
+        <label for="name">Назва:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+
+        <label for="region">Область:</label>
+        <select id="region" th:field="*{region.id}" required>
+            <option value="" disabled>Оберіть область</option>
+            <option th:each="region : ${regions}" th:value="${region.id}" th:text="${region.name}"></option>
+        </select>
+        <div th:if="${#fields.hasErrors('region.id')}" th:errors="*{region.id}" class="error"></div>
+
+        <button type="submit" class="button">Зберегти</button>
+    </form>
+    <a href="/districts_cities" class="button button-back">Повернутися до списку</a>
+</div>
+</body>
+</html>

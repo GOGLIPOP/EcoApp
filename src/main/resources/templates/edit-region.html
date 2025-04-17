@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування області</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home">
+    <h1>Редагування області</h1>
+    <form th:action="@{/regions/edit/{id}(id=${region.id})}" th:object="${region}" method="post" class="form-container">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Назва:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+
+        <button type="submit" class="button">Зберегти</button>
+    </form>
+    <a href="/regions" class="button button-back">Повернутися до списку</a>
+</div>
+</body>
+</html>

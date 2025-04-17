@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Міста/Райони</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home container-districts-cities">
+    <h2 class="page-title">Міста/Райони</h2>
+    <a th:href="@{/districts_cities/add}" class="button button-add">Додати місто/район</a>
+    <table class="container-table">
+        <thead>
+        <tr>
+            <th class="table-header">ID</th>
+            <th class="table-header">Назва</th>
+            <th class="table-header">Область</th>
+            <th class="table-header">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="districtCity : ${districtCities}">
+            <td th:text="${districtCity.id}" class="table-cell"></td>
+            <td th:text="${districtCity.name}" class="table-cell"></td>
+            <td th:text="${districtCity.region.name}" class="table-cell"></td>
+            <td class="table-cell actions">
+                <a th:href="@{/districts_cities/edit/{id}(id=${districtCity.id})}" class="button button-edit">Edit</a>
+                <a th:href="@{/districts_cities/delete/{id}(id=${districtCity.id})}" class="button button-delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/home}" class="button button-back">Повернутися на головну</a>
+</div>
+</body>
+</html>

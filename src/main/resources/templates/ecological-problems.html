@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Екологічні проблеми</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home container-districts-cities">
+    <h2 class="page-title">Екологічні проблеми</h2>
+    <a th:href="@{/ecological-problems/add}" class="button button-add">Додати проблему</a>
+    <table class="container-table">
+        <thead>
+        <tr>
+            <th class="table-header">ID</th>
+            <th class="table-header">Опис</th>
+            <th class="table-header">Місто/Район</th>
+            <th class="table-header">Дії</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="problem : ${ecologicalProblems}">
+            <td th:text="${problem.id}" class="table-cell"></td>
+            <td th:text="${problem.description}" class="table-cell"></td>
+            <td th:text="${problem.districtCity.name}" class="table-cell"></td>
+            <td class="table-cell actions">
+                <a th:href="@{/ecological-problems/edit/{id}(id=${problem.id})}" class="button button-edit">Редагувати</a>
+                <a th:href="@{/ecological-problems/delete/{id}(id=${problem.id})}" class="button button-delete">Видалити</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/home}" class="button button-back">Повернутися на головну</a>
+</div>
+</body>
+</html>

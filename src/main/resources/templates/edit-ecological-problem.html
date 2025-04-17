@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування екологічної проблеми</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home">
+    <h1>Редагування екологічної проблеми</h1>
+    <form th:action="@{/ecological-problems/edit/{id}(id=${ecologicalProblem.id})}" th:object="${ecologicalProblem}" method="post" class="form-container">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="description">Опис:</label>
+        <input type="text" id="description" th:field="*{description}" required />
+        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+
+        <label for="districtCity">Місто/Район:</label>
+        <select id="districtCity" th:field="*{districtCity.id}" required>
+            <option value="" disabled>Оберіть місто/район</option>
+            <option th:each="districtCity : ${districtCities}" th:value="${districtCity.id}" th:text="${districtCity.name}"></option>
+        </select>
+        <div th:if="${#fields.hasErrors('districtCity.id')}" th:errors="*{districtCity.id}" class="error"></div>
+
+        <button type="submit" class="button">Зберегти</button>
+    </form>
+    <a href="/ecological-problems" class="button button-back">Повернутися до списку</a>
+</div>
+</body>
+</html>

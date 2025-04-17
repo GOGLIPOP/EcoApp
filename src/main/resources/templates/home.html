@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="home-page">
+<div class="container-home">
+    <h1>EcoApp</h1>
+    <p>Logged in successfully</p>
+
+    <a th:href="@{/regions}" class="nav-button">Області</a>
+    <a th:href="@{/districts_cities}" class="nav-button">Райони / Міста</a>
+    <a th:href="@{/ecological-problems}" class="nav-button">Екологічні проблеми</a>
+
+    <a th:href="@{/logout}" class="button-logout">Logout</a>
+</div>
+</body>
+</html>
