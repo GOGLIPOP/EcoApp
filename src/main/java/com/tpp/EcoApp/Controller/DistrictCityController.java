@@ -32,7 +32,6 @@ public class DistrictCityController {
 
     @GetMapping("/add")
     public String addDistrictCityForm(Model model, Authentication authentication) {
-        checkAdminAccess(authentication);
         model.addAttribute("districtCity", new DistrictCity());
         model.addAttribute("regions", regionService.getAllRegions());
         return "add-district-city";
@@ -43,7 +42,6 @@ public class DistrictCityController {
                                   BindingResult result,
                                   Model model,
                                   Authentication authentication) {
-        checkAdminAccess(authentication);
         if (result.hasErrors()) {
             model.addAttribute("regions", regionService.getAllRegions());
             return "add-district-city";
@@ -56,7 +54,6 @@ public class DistrictCityController {
     public String editDistrictCityForm(@PathVariable("id") Long id,
                                        Model model,
                                        Authentication authentication) {
-        checkAdminAccess(authentication);
         DistrictCity districtCity = districtCityService.findDistrictCityById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid district city ID: " + id));
         model.addAttribute("districtCity", districtCity);
@@ -70,7 +67,6 @@ public class DistrictCityController {
                                    BindingResult result,
                                    Model model,
                                    Authentication authentication) {
-        checkAdminAccess(authentication);
         if (result.hasErrors()) {
             model.addAttribute("regions", regionService.getAllRegions());
             return "edit-district-city";
@@ -83,15 +79,7 @@ public class DistrictCityController {
     @GetMapping("/delete/{id}")
     public String deleteDistrictCity(@PathVariable("id") Long id,
                                      Authentication authentication) {
-        checkAdminAccess(authentication);
         districtCityService.deleteDistrictCityById(id);
         return "redirect:/districts_cities";
-    }
-
-    private void checkAdminAccess(Authentication authentication) {
-        if (authentication == null ||
-                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            throw new AccessDeniedException("Access denied");
-        }
     }
 }

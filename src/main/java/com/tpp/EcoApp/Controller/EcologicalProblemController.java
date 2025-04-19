@@ -32,7 +32,6 @@ public class EcologicalProblemController {
 
     @GetMapping("/add")
     public String addEcologicalProblemForm(Model model, Authentication authentication) {
-        checkAdminAccess(authentication);
         model.addAttribute("ecologicalProblem", new EcologicalProblem());
         model.addAttribute("districtCities", districtCityService.getAllDistrictCities());
         return "add-ecological-problem";
@@ -43,7 +42,6 @@ public class EcologicalProblemController {
                                        BindingResult result,
                                        Model model,
                                        Authentication authentication) {
-        checkAdminAccess(authentication);
         if (result.hasErrors()) {
             model.addAttribute("districtCities", districtCityService.getAllDistrictCities());
             return "add-ecological-problem";
@@ -56,7 +54,6 @@ public class EcologicalProblemController {
     public String editEcologicalProblemForm(@PathVariable("id") Long id,
                                             Model model,
                                             Authentication authentication) {
-        checkAdminAccess(authentication);
         EcologicalProblem ecologicalProblem = ecologicalProblemService.findEcologicalProblemById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ecological problem ID: " + id));
         model.addAttribute("ecologicalProblem", ecologicalProblem);
@@ -70,7 +67,6 @@ public class EcologicalProblemController {
                                         BindingResult result,
                                         Model model,
                                         Authentication authentication) {
-        checkAdminAccess(authentication);
         if (result.hasErrors()) {
             model.addAttribute("districtCities", districtCityService.getAllDistrictCities());
             return "edit-ecological-problem";
@@ -83,15 +79,7 @@ public class EcologicalProblemController {
     @GetMapping("/delete/{id}")
     public String deleteEcologicalProblem(@PathVariable("id") Long id,
                                           Authentication authentication) {
-        checkAdminAccess(authentication);
         ecologicalProblemService.deleteEcologicalProblemById(id);
         return "redirect:/ecological-problems";
-    }
-
-    private void checkAdminAccess(Authentication authentication) {
-        if (authentication == null ||
-                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            throw new AccessDeniedException("Access denied");
-        }
     }
 }
